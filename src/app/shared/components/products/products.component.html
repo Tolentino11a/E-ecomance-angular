@@ -1,0 +1,38 @@
+<button (click)="createNewProduct()">create new product</button>
+<button (click)="onShowDetail('111111')">detalle not found </button>
+<div class="products--grid">
+    <app-product 
+     [product]="product"
+     *ngFor="let product of products"
+     (addedProduct)="onAddToShoppingCart($event)"
+     (showProduct)="onShowDetail($event)">
+    </app-product>
+    <button (click)="loadMore()">Load more</button>
+</div>
+<div class="product-detail" [class.active]="showProductDetail">
+  {{ statusDetail }}
+    <button (click)="toggleProductDetail()" class="back-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+        Back
+      </button>
+    <div  class="detail" *ngIf="productChoosen">
+      <div class="gallery">
+        <swiper [slidesPerView]="1">
+        <ng-template swiperSlide *ngFor="let img of productChoosen.images">
+          <img [src]="img" alt="">
+        </ng-template>
+      </swiper>
+    </div>
+    <div class="product-info">
+
+        <h1 class="title">{{ productChoosen.title }}</h1>
+        <p class="price">{{ productChoosen.price | currency }}</p>
+        <p class="description">{{ productChoosen.description }}</p>
+    </div>
+    <button (click)="updateProduct()">Editar</button>
+    <button (click)="deleteProduct()">Eliminar</button>
+    </div>
+</div>
+
